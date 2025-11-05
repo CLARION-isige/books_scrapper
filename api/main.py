@@ -2,6 +2,7 @@ import os
 import time
 from typing import List, Optional
 from contextlib import asynccontextmanager
+from datetime import datetime
 
 import orjson
 from fastapi import Depends, FastAPI, HTTPException, Query, Request, status
@@ -9,6 +10,7 @@ from fastapi.responses import ORJSONResponse
 from pydantic import BaseModel
 from motor.motor_asyncio import AsyncIOMotorClient
 from dotenv import load_dotenv
+from bson import ObjectId
 
 load_dotenv()
 
@@ -23,6 +25,16 @@ RATE_LIMIT_PER_HOUR = int(os.getenv("RATE_LIMIT_PER_HOUR"))
 class ORJSONResponseCustom(ORJSONResponse):
     def render(self, content: any) -> bytes:
         return orjson.dumps(content)
+
+
+def _convert_bson(obj):
+    if isinstance(obj, ObjectId):
+        return str(obj)
+    if isinstance(obj, list):
+        return [_convert_bson(x) for x in obj]
+    if isinstance(obj, dict):
+        return {k: _convert_bson(v) for k, v in obj.items()}
+    return obj
 
 
 # ---- Lifespan handler replacing on_event ----
@@ -50,7 +62,8 @@ _rate_store = {}
 
 
 def get_api_key(request: Request):
-    api_key = request.headers.get("X-API-Key")
+    api_key = request.headers.get("X-API-KEY")
+    
     if api_key != API_KEY:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid API key")
 
@@ -60,6 +73,7 @@ def get_api_key(request: Request):
     if cnt >= RATE_LIMIT_PER_HOUR:
         raise HTTPException(status_code=429, detail="Rate limit exceeded")
     _rate_store[key] = cnt + 1
+
     return api_key
 
 
@@ -76,20 +90,19 @@ class BookOut(BaseModel):
     num_reviews: Optional[int] = None
     image_url: Optional[str] = None
     rating: Optional[int] = None
-    crawl_ts: Optional[str] = None
+    crawl_ts: Optional[datetime] = None
 
 
 class ChangeOut(BaseModel):
     book_id: str
     change_type: str
     changes: dict
-    changed_at: str
+    changed_at: datetime
 
 
 # ---- Routes ----
 @app.get("/books", response_model=List[BookOut])
 async def list_books(
-    api_key: str = Depends(get_api_key),
     category: Optional[str] = Query(None),
     min_price: Optional[float] = Query(None),
     max_price: Optional[float] = Query(None),
@@ -127,7 +140,7 @@ async def list_books(
 
 
 @app.get("/books/{book_id}", response_model=BookOut)
-async def get_book(book_id: str, api_key: str = Depends(get_api_key)):
+async def get_book(book_id: str):
     doc = await app.state.db[BOOKS_COL].find_one({"book_id": book_id}, {"_id": 0})
     if not doc:
         raise HTTPException(status_code=404, detail="Book not found")
@@ -136,7 +149,6 @@ async def get_book(book_id: str, api_key: str = Depends(get_api_key)):
 
 @app.get("/changes", response_model=List[ChangeOut])
 async def get_changes(
-    api_key: str = Depends(get_api_key),
     page: int = Query(1, ge=1),
     page_size: int = Query(20, ge=1, le=200),
 ):
@@ -148,4 +160,7 @@ async def get_changes(
         .skip(skip)
         .limit(page_size)
     )
-    return [doc async for doc in cursor]
+    docs = [doc async for doc in cursor]
+    return [_convert_bson(d) for d in docs]
+
+

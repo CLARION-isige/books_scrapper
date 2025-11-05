@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from datetime import datetime
 from dotenv import load_dotenv
 
 # Load .env from project root (two levels up from this file)
@@ -101,7 +102,6 @@ MONGO_BOOKS_COLLECTION = os.getenv("MONGO_BOOKS_COLLECTION")
 MONGO_CHANGES_COLLECTION = os.getenv("MONGO_CHANGES_COLLECTION")
 
 # Logging configuration
-from datetime import datetime
 LOG_FILE = os.path.join(os.path.dirname(__file__), "..", "..", "logs", f"crawl_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log")
 LOG_LEVEL = os.getenv("SCRAPY_LOG_LEVEL", "INFO")
 LOG_FORMAT = "%(asctime)s [%(name)s] %(levelname)s: %(message)s"
