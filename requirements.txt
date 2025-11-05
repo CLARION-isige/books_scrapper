@@ -1,29 +1,28 @@
 # Web Crawling
-scrapy
-httpx
-beautifulsoup4
-lxml
+scrapy==2.13.3
+httpx==0.28.1
+beautifulsoup4==4.14.2
+lxml==6.0.2
 
 # API
-fastapi
-uvicorn[standard]
-pydantic
-pydantic-settings
-orjson
+fastapi==0.121.0
+uvicorn[standard]==0.38.0
+pydantic==2.12.3
+pydantic-settings==2.11.0
+orjson==3.11.4
 
 # Database
-pymongo
-motor
+pymongo==4.15.3
+motor==3.7.1
 
 # Scheduling
-apscheduler
+apscheduler==3.11.1
 
 # Configuration
-python-dotenv
+python-dotenv==1.2.1
 
 # Testing
-pytest
-pytest-asyncio
-pytest-cov
-pytest-mock
-httpx  # Already listed above, supports async testing
+pytest==8.4.2
+pytest-asyncio==1.2.0
+pytest-cov==7.0.0
+pytest-mock==3.15.1
