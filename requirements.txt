@@ -1,0 +1,29 @@
+# Web Crawling
+scrapy
+httpx
+beautifulsoup4
+lxml
+
+# API
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+orjson
+
+# Database
+pymongo
+motor
+
+# Scheduling
+apscheduler
+
+# Configuration
+python-dotenv
+
+# Testing
+pytest
+pytest-asyncio
+pytest-cov
+pytest-mock
+httpx  # Already listed above, supports async testing

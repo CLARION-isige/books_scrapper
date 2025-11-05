@@ -1,0 +1,186 @@
+2025-11-05 20:51:28 [scrapy.utils.log] INFO: Scrapy 2.13.3 started (bot: web_crawler)
+2025-11-05 20:51:28 [scrapy.utils.log] INFO: Versions:
+{'lxml': '6.0.2',
+ 'libxml2': '2.14.6',
+ 'cssselect': '1.3.0',
+ 'parsel': '1.10.0',
+ 'w3lib': '2.3.1',
+ 'Twisted': '25.5.0',
+ 'Python': '3.11.5 (main, Sep 11 2023, 13:54:46) [GCC 11.2.0]',
+ 'pyOpenSSL': '25.3.0 (OpenSSL 3.5.4 30 Sep 2025)',
+ 'cryptography': '46.0.3',
+ 'Platform': 'Linux-6.17.0-6-generic-x86_64-with-glibc2.42'}
+2025-11-05 20:51:28 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-11-05 20:51:28 [scrapy.extensions.telnet] INFO: Telnet Password: 10002fccf0c45dd0
+2025-11-05 20:51:28 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.logstats.LogStats',
+ 'scrapy.extensions.spiderstate.SpiderState',
+ 'scrapy.extensions.throttle.AutoThrottle']
+2025-11-05 20:51:28 [scrapy.crawler] INFO: Overridden settings:
+{'AUTOTHROTTLE_ENABLED': True,
+ 'AUTOTHROTTLE_MAX_DELAY': 10.0,
+ 'AUTOTHROTTLE_START_DELAY': 0.5,
+ 'AUTOTHROTTLE_TARGET_CONCURRENCY': 2.0,
+ 'BOT_NAME': 'web_crawler',
+ 'COOKIES_ENABLED': False,
+ 'DOWNLOAD_TIMEOUT': 30,
+ 'FEED_EXPORT_ENCODING': 'utf-8',
+ 'JOBDIR': '.job/books_run',
+ 'LOG_FILE': '/home/clarion-isige/Documents/Work/Filerskeepers/web_crawler/web_crawler/../../logs/crawl_2025-11-05_20-51-28.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'web_crawler.spiders',
+ 'RETRY_TIMES': 3,
+ 'ROBOTSTXT_OBEY': True,
+ 'SPIDER_MODULES': ['web_crawler.spiders']}
+2025-11-05 20:51:28 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-11-05 20:51:28 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.start.StartSpiderMiddleware',
+ 'scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-11-05 20:51:29 [scrapy.middleware] INFO: Enabled item pipelines:
+['web_crawler.pipelines.MongoBookPipeline']
+2025-11-05 20:51:29 [scrapy.core.engine] INFO: Spider opened
+2025-11-05 20:51:29 [scrapy.core.engine] INFO: Closing spider (shutdown)
+2025-11-05 20:51:29 [scrapy.utils.signal] ERROR: Error caught on signal handler: <bound method CoreStats.spider_closed of <scrapy.extensions.corestats.CoreStats object at 0x7ad1eea50c10>>
+Traceback (most recent call last):
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/scrapy/crawler.py", line 157, in crawl
+    yield self.engine.open_spider(self.spider)
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/twisted/internet/defer.py", line 1257, in adapt
+    extracted: _SelfResultT | Failure = result.result()
+                                        ^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/scrapy/core/engine.py", line 446, in open_spider
+    await maybe_deferred_to_future(self.scraper.open_spider(spider))
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/twisted/internet/defer.py", line 1853, in _inlineCallbacks
+    result = context.run(
+             ^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/twisted/python/failure.py", line 467, in throwExceptionIntoGenerator
+    return g.throw(self.value.with_traceback(self.tb))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/scrapy/core/scraper.py", line 118, in open_spider
+    yield self.itemproc.open_spider(spider)
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/twisted/internet/defer.py", line 1092, in _runCallbacks
+    current.result = callback(  # type: ignore[misc]
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/web_crawler/web_crawler/pipelines.py", line 34, in open_spider
+    self.db = self.client[self.mongo_db_name]
+              ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/pymongo/synchronous/mongo_client.py", line 1347, in __getitem__
+    return database.Database(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/pymongo/synchronous/database.py", line 125, in __init__
+    raise TypeError(f"name must be an instance of str, not {type(name)}")
+TypeError: name must be an instance of str, not <class 'NoneType'>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/scrapy/utils/defer.py", line 417, in maybeDeferred_coro
+    result = f(*args, **kw)
+             ^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/pydispatch/robustapply.py", line 55, in robustApply
+    return receiver(*arguments, **named)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/scrapy/extensions/corestats.py", line 41, in spider_closed
+    assert self.start_time is not None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+2025-11-05 20:51:29 [scrapy.utils.signal] ERROR: Error caught on signal handler: <bound method SpiderState.spider_closed of <scrapy.extensions.spiderstate.SpiderState object at 0x7ad1eeafe910>>
+Traceback (most recent call last):
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/scrapy/crawler.py", line 157, in crawl
+    yield self.engine.open_spider(self.spider)
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/twisted/internet/defer.py", line 1257, in adapt
+    extracted: _SelfResultT | Failure = result.result()
+                                        ^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/scrapy/core/engine.py", line 446, in open_spider
+    await maybe_deferred_to_future(self.scraper.open_spider(spider))
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/twisted/internet/defer.py", line 1853, in _inlineCallbacks
+    result = context.run(
+             ^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/twisted/python/failure.py", line 467, in throwExceptionIntoGenerator
+    return g.throw(self.value.with_traceback(self.tb))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/scrapy/core/scraper.py", line 118, in open_spider
+    yield self.itemproc.open_spider(spider)
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/twisted/internet/defer.py", line 1092, in _runCallbacks
+    current.result = callback(  # type: ignore[misc]
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/web_crawler/web_crawler/pipelines.py", line 34, in open_spider
+    self.db = self.client[self.mongo_db_name]
+              ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/pymongo/synchronous/mongo_client.py", line 1347, in __getitem__
+    return database.Database(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/pymongo/synchronous/database.py", line 125, in __init__
+    raise TypeError(f"name must be an instance of str, not {type(name)}")
+TypeError: name must be an instance of str, not <class 'NoneType'>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/scrapy/utils/defer.py", line 417, in maybeDeferred_coro
+    result = f(*args, **kw)
+             ^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/pydispatch/robustapply.py", line 55, in robustApply
+    return receiver(*arguments, **named)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/scrapy/extensions/spiderstate.py", line 38, in spider_closed
+    assert hasattr(spider, "state")  # set in spider_opened
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+2025-11-05 20:51:29 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'items_per_minute': None,
+ 'log_count/ERROR': 2,
+ 'log_count/INFO': 8,
+ 'responses_per_minute': None}
+2025-11-05 20:51:29 [scrapy.core.engine] INFO: Spider closed (shutdown)
+2025-11-05 20:51:29 [twisted] CRITICAL: Unhandled error in Deferred:
+2025-11-05 20:51:29 [twisted] CRITICAL: 
+Traceback (most recent call last):
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/twisted/internet/defer.py", line 1857, in _inlineCallbacks
+    result = context.run(gen.send, result)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/scrapy/crawler.py", line 157, in crawl
+    yield self.engine.open_spider(self.spider)
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/twisted/internet/defer.py", line 1257, in adapt
+    extracted: _SelfResultT | Failure = result.result()
+                                        ^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/scrapy/core/engine.py", line 446, in open_spider
+    await maybe_deferred_to_future(self.scraper.open_spider(spider))
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/twisted/internet/defer.py", line 1853, in _inlineCallbacks
+    result = context.run(
+             ^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/twisted/python/failure.py", line 467, in throwExceptionIntoGenerator
+    return g.throw(self.value.with_traceback(self.tb))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/scrapy/core/scraper.py", line 118, in open_spider
+    yield self.itemproc.open_spider(spider)
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/twisted/internet/defer.py", line 1092, in _runCallbacks
+    current.result = callback(  # type: ignore[misc]
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/web_crawler/web_crawler/pipelines.py", line 34, in open_spider
+    self.db = self.client[self.mongo_db_name]
+              ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/pymongo/synchronous/mongo_client.py", line 1347, in __getitem__
+    return database.Database(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clarion-isige/Documents/Work/Filerskeepers/files_env/lib/python3.11/site-packages/pymongo/synchronous/database.py", line 125, in __init__
+    raise TypeError(f"name must be an instance of str, not {type(name)}")
+TypeError: name must be an instance of str, not <class 'NoneType'>

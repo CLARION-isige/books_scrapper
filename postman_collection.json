@@ -1,0 +1,395 @@
+{
+  "info": {
+    "name": "Books Monitor API",
+    "description": "API collection for testing the Books Monitor crawling system",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "books-monitor"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "value",
+        "value": "{{API_KEY}}",
+        "type": "string"
+      },
+      {
+        "key": "key",
+        "value": "X-API-Key",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "http://127.0.0.1:8000",
+      "type": "string"
+    },
+    {
+      "key": "API_KEY",
+      "value": "change-me",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Books",
+      "item": [
+        {
+          "name": "List All Books",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/books",
+              "host": ["{{BASE_URL}}"],
+              "path": ["books"]
+            },
+            "description": "Retrieve all books with default pagination (page 1, 20 items)"
+          },
+          "response": []
+        },
+        {
+          "name": "List Books with Pagination",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/books?page=2&page_size=10",
+              "host": ["{{BASE_URL}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "2"
+                },
+                {
+                  "key": "page_size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Get page 2 with 10 items per page"
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/books?category=Poetry",
+              "host": ["{{BASE_URL}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Poetry"
+                }
+              ]
+            },
+            "description": "Get all books in the Poetry category"
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by Price Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/books?min_price=10&max_price=30",
+              "host": ["{{BASE_URL}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "min_price",
+                  "value": "10"
+                },
+                {
+                  "key": "max_price",
+                  "value": "30"
+                }
+              ]
+            },
+            "description": "Get books priced between £10 and £30"
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by Rating",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/books?rating=4",
+              "host": ["{{BASE_URL}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "rating",
+                  "value": "4"
+                }
+              ]
+            },
+            "description": "Get books with 4-star rating"
+          },
+          "response": []
+        },
+        {
+          "name": "Sort by Rating",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/books?sort_by=rating",
+              "host": ["{{BASE_URL}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "sort_by",
+                  "value": "rating"
+                }
+              ]
+            },
+            "description": "Sort books by rating (highest first)"
+          },
+          "response": []
+        },
+        {
+          "name": "Sort by Price",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/books?sort_by=price",
+              "host": ["{{BASE_URL}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "sort_by",
+                  "value": "price"
+                }
+              ]
+            },
+            "description": "Sort books by price (lowest first)"
+          },
+          "response": []
+        },
+        {
+          "name": "Sort by Reviews",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/books?sort_by=reviews",
+              "host": ["{{BASE_URL}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "sort_by",
+                  "value": "reviews"
+                }
+              ]
+            },
+            "description": "Sort books by number of reviews (most reviewed first)"
+          },
+          "response": []
+        },
+        {
+          "name": "Combined Filters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/books?category=Fiction&min_price=10&max_price=40&rating=5&sort_by=price&page=1&page_size=20",
+              "host": ["{{BASE_URL}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Fiction"
+                },
+                {
+                  "key": "min_price",
+                  "value": "10"
+                },
+                {
+                  "key": "max_price",
+                  "value": "40"
+                },
+                {
+                  "key": "rating",
+                  "value": "5"
+                },
+                {
+                  "key": "sort_by",
+                  "value": "price"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "page_size",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Get Fiction books with 5 stars, priced £10-£40, sorted by price"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Book by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/books/{{BOOK_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["books", "{{BOOK_ID}}"]
+            },
+            "description": "Get detailed information about a specific book by its ID (UPC)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Changes",
+      "item": [
+        {
+          "name": "List All Changes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/changes",
+              "host": ["{{BASE_URL}}"],
+              "path": ["changes"]
+            },
+            "description": "Get recent changes (new books and updates) with default pagination"
+          },
+          "response": []
+        },
+        {
+          "name": "List Changes with Pagination",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/changes?page=1&page_size=50",
+              "host": ["{{BASE_URL}}"],
+              "path": ["changes"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "page_size",
+                  "value": "50"
+                }
+              ]
+            },
+            "description": "Get changes with custom page size (up to 200)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Authentication Tests",
+      "item": [
+        {
+          "name": "Request without API Key (Should Fail)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/books",
+              "host": ["{{BASE_URL}}"],
+              "path": ["books"]
+            },
+            "description": "Test authentication - should return 401 Unauthorized"
+          },
+          "response": []
+        },
+        {
+          "name": "Request with Invalid API Key (Should Fail)",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "invalid-key-12345",
+                  "type": "string"
+                },
+                {
+                  "key": "key",
+                  "value": "X-API-Key",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/books",
+              "host": ["{{BASE_URL}}"],
+              "path": ["books"]
+            },
+            "description": "Test with wrong API key - should return 401 Unauthorized"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "OpenAPI Docs",
+      "item": [
+        {
+          "name": "Swagger UI",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/docs",
+              "host": ["{{BASE_URL}}"],
+              "path": ["docs"]
+            },
+            "description": "Access interactive Swagger UI documentation"
+          },
+          "response": []
+        },
+        {
+          "name": "OpenAPI JSON Schema",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/openapi.json",
+              "host": ["{{BASE_URL}}"],
+              "path": ["openapi.json"]
+            },
+            "description": "Get OpenAPI specification in JSON format"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

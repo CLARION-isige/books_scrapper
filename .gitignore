@@ -1,0 +1,3 @@
+/files_env
+.env
+.pytest_cache
