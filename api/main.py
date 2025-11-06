@@ -3,23 +3,22 @@ import time
 from typing import List, Optional
 from contextlib import asynccontextmanager
 from datetime import datetime
-
 import orjson
-from fastapi import Depends, FastAPI, HTTPException, Query, Request, status
+from fastapi import Security, FastAPI, HTTPException, Query, Request, status
 from fastapi.responses import ORJSONResponse
+from fastapi.security import APIKeyHeader
 from pydantic import BaseModel
 from motor.motor_asyncio import AsyncIOMotorClient
-from dotenv import load_dotenv
 from bson import ObjectId
+from dotenv import load_dotenv
+from web_crawler.web_crawler.settings import (
+    API_KEY, MONGO_URI, MONGO_DB, BOOKS_COL, CHANGES_COL, RATE_LIMIT_PER_HOUR
+)
 
 load_dotenv()
 
-API_KEY = os.getenv("X-API-KEY")
-MONGO_URI = os.getenv("MONGO_URI")
-MONGO_DB = os.getenv("MONGO_DB")
-BOOKS_COL = os.getenv("MONGO_BOOKS_COLLECTION")
-CHANGES_COL = os.getenv("MONGO_CHANGES_COLLECTION")
-RATE_LIMIT_PER_HOUR = int(os.getenv("RATE_LIMIT_PER_HOUR"))
+api_key_header = APIKeyHeader(name="x-key", auto_error=True)
+
 
 
 class ORJSONResponseCustom(ORJSONResponse):
@@ -61,9 +60,8 @@ app = FastAPI(
 _rate_store = {}
 
 
-def get_api_key(request: Request):
-    api_key = request.headers.get("X-API-KEY")
-    
+def get_api_key(api_key: str = Security(api_key_header)):
+    print("API_KEY", API_KEY)
     if api_key != API_KEY:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid API key")
 
@@ -103,6 +101,7 @@ class ChangeOut(BaseModel):
 # ---- Routes ----
 @app.get("/books", response_model=List[BookOut])
 async def list_books(
+    api_key: str = Security(get_api_key),
     category: Optional[str] = Query(None),
     min_price: Optional[float] = Query(None),
     max_price: Optional[float] = Query(None),

@@ -4,7 +4,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 
 # Load .env from project root (two levels up from this file)
-env_path = Path(__file__).resolve().parent.parent.parent.parent / ".env"
+env_path = Path(__file__).resolve().parents[2] / ".env"
 load_dotenv(dotenv_path=env_path)
 
 # Scrapy settings for web_crawler project
@@ -98,8 +98,12 @@ HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
  # Mongo settings via environment
 MONGO_URI = os.getenv("MONGO_URI")
 MONGO_DB = os.getenv("MONGO_DB")
-MONGO_BOOKS_COLLECTION = os.getenv("MONGO_BOOKS_COLLECTION")
-MONGO_CHANGES_COLLECTION = os.getenv("MONGO_CHANGES_COLLECTION")
+BOOKS_COL = os.getenv("MONGO_BOOKS_COLLECTION")
+CHANGES_COL = os.getenv("MONGO_CHANGES_COLLECTION")
+RATE_LIMIT_PER_HOUR = int(os.getenv("RATE_LIMIT_PER_HOUR"))
+
+
+API_KEY = os.getenv("X-API-KEY")
 
 # Logging configuration
 LOG_FILE = os.path.join(os.path.dirname(__file__), "..", "..", "logs", f"crawl_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log")
