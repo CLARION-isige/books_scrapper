@@ -63,7 +63,7 @@ Features:
 uvicorn api.main:app --reload
 ```
 
-Use header `X-API-Key: <your_api_key>`.
+Use header `x-key: <your_api_key>`. Use "x-key" for test
 
 - `GET /books?category=Poetry&min_price=10&max_price=30&rating=4&sort_by=rating&page=1&page_size=20`
 - `GET /books/{book_id}`
@@ -118,20 +118,20 @@ Collection includes:
 - Pagination examples
 - OpenAPI documentation links
 
-### Using cURL
+### Using cURL(x-key = x-key for test)
 
 ```bash
 # List books
-curl -H "X-API-Key: your-key" http://127.0.0.1:8000/books
+curl -H "x-key: your-key" http://127.0.0.1:8000/books
 
 # Filter by category and price
-curl -H "X-API-Key: your-key" "http://127.0.0.1:8000/books?category=Fiction&min_price=10&max_price=30"
+curl -H "x-key: your-key" "http://127.0.0.1:8000/books?category=Fiction&min_price=10&max_price=30"
 
 # Get specific book
-curl -H "X-API-Key: your-key" http://127.0.0.1:8000/books/abc123
+curl -H "x-key: your-key" http://127.0.0.1:8000/books/abc123
 
 # View changes
-curl -H "X-API-Key: your-key" http://127.0.0.1:8000/changes
+curl -H "x-key: your-key" http://127.0.0.1:8000/changes
 ```
 
 ## Logging
