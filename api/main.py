@@ -139,7 +139,7 @@ async def list_books(
 
 
 @app.get("/books/{book_id}", response_model=BookOut)
-async def get_book(book_id: str):
+async def get_book(book_id: str, api_key: str = Security(get_api_key)):
     doc = await app.state.db[BOOKS_COL].find_one({"book_id": book_id}, {"_id": 0})
     if not doc:
         raise HTTPException(status_code=404, detail="Book not found")
@@ -148,6 +148,7 @@ async def get_book(book_id: str):
 
 @app.get("/changes", response_model=List[ChangeOut])
 async def get_changes(
+    api_key: str = Security(get_api_key),
     page: int = Query(1, ge=1),
     page_size: int = Query(20, ge=1, le=200),
 ):

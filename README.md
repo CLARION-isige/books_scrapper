@@ -179,3 +179,11 @@ Logs include:
 
 
 ## screenshots
+1. MongoDB overview on cloud.mongodb.com
+![MongoDB overview](images/mongodb_overview.png)
+2. FastAPI Swagger UI
+![FastAPI Swagger UI](images/fastapi_swagger_ui.png)
+3. FastAPI docs 
+![FastAPI docs](images/docs_apis.png)
+4. Books GET API 
+![Books GET API](images/books_get_api.png)
